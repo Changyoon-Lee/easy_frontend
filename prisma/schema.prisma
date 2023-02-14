@@ -15,40 +15,33 @@ model User {
   id        Int       @id @default(autoincrement())
   email     String    @unique
   password  String
+  nickname  String
   avatar    String?
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
-  Posting   Posting[]
+  Article   Article[]
 }
 
-model Posting {
-  id                 Int                   @id @default(autoincrement())
-  rating             Int                   @default(0)
-  comments           Int                   @default(0)
-  views              Int                   @default(0)
-  title              String
-  user               User                  @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId             Int
-  createdAt          DateTime              @default(now())
-  updatedAt          DateTime              @updatedAt
-  TagPostingRelation TagPostingRelations[]
+model Article {
+  id          Int       @id @default(autoincrement())
+  rating      Int       @default(0)
+  comments    Int       @default(0)
+  views       Int       @default(0)
+  title       String
+  description String    @db.LongText
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId      Int
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  hashtags    Hashtag[]
 
   @@index([userId])
 }
 
-model Tag {
-  id                  Int                   @id @default(autoincrement())
-  tagName             String
-  TagPostingRelations TagPostingRelations[]
-}
-
-model TagPostingRelations {
-  posting   Posting @relation(fields: [postingId], references: [id], onDelete: Cascade)
-  postingId Int
-  tag       Tag     @relation(fields: [tagId], references: [id], onDelete: Cascade)
-  tagId     Int
-
-  @@id([postingId, tagId])
-  @@index([postingId])
-  @@index([tagId])
+model Hashtag {
+  id        Int       @id @default(autoincrement())
+  hashtag   String    @unique
+  articles  Article[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
 }

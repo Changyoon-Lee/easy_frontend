@@ -1,0 +1,16 @@
+doctype html 
+html(lang="ko")
+    head 
+        title #{pageTitle} | #{siteName}
+        link(rel="stylesheet" href="https://unpkg.com/mvp.css@1.12/mvp.css")
+        link(rel="stylesheet" href="https://kit.fontawesome.com/88eea5fb64.css" crossorigin="anonymous")
+        link(rel="stylesheet" href="/static/css/tailwind.css")
+
+    body
+        h1=pageTitle 
+        include partials/header 
+        include partials/nav
+        main
+            block content 
+
+        include partials/footer

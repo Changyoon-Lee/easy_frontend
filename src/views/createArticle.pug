@@ -1,0 +1,8 @@
+extend base
+
+block content 
+    form(method="POST", action="/article/create")
+        input(type="text" name="title" placeholder="title of article")
+        input(type="text" name="description" placeholder="description of article")
+        input(type="text" name="hashtags" placeholder="hash tags separate by comma.")
+        input(type="submit" value="upload this post")

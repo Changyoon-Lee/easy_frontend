@@ -1,5 +1,5 @@
 import express from "express";
-import { getMainPage } from "../controllers/postingController";
+import { getMainPage } from "../controllers/articleController";
 import { getSignInPage, signIn, getSignUpPage, signUp } from "../controllers/userController";
 const globalRouter = express.Router();
 
