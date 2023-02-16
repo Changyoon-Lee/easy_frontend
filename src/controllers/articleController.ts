@@ -1,8 +1,7 @@
-import { Prisma, PrismaClient } from "@prisma/client";
+import { Prisma } from "@prisma/client";
 import { Request, Response } from "express";
 import { title } from "process";
 import prisma from '../lib/server/prisma'
-
 export const getMainPage = async (req: Request, res: Response) => {
     try {
         const articles = await prisma.article.findMany({
@@ -19,29 +18,23 @@ export const getMainPage = async (req: Request, res: Response) => {
         console.error('main page loading error', e);
         res.render("main", { pageTitle: "create Article", errorMessage: 'main page loading error' })
     }
-
 }
 export const getCreateArticlePage = (req: Request, res: Response) => res.render("createArticle")
 export const watchArticle = (req: Request, res: Response) => res.render("watch")
 
-interface createArticleBody extends Prisma.ArticleCreateInput {
-    caption?: string
-}
-interface ArticleRequest<T> extends Request {
-    body: T
-}
+
 interface HashtagObj {
     where: { hashtag: string }
     create: { hashtag: string }
 }
-export const createArticle = async (req: ArticleRequest<createArticleBody>, res: Response) => {
+export const createArticle = async (req: Request, res: Response) => {
     const userId: number = 0;
     try {
         const { title, description, caption } = req.body;
         let hashtagObjs: HashtagObj[] = [];
         if (caption) {
             const hashtags = caption.match(/#[ㄱ-ㅎ|ㅏ-ㅣ|가-힣|\w]+/g);//array형태
-            hashtagObjs = hashtags?.map((hashtag) => ({// 각 tag마다 where,create구문을 만들어준다
+            hashtagObjs = hashtags?.map((hashtag: any) => ({// 각 tag마다 where,create구문을 만들어준다
                 where: { hashtag },
                 create: { hashtag }
             })) || [];

@@ -1,0 +1,12 @@
+extends base
+
+block content 
+    if errorMessage
+        span=errorMessage
+    if okMessage 
+        span=okMessage
+    form(method="POST")
+        input(name="email", type="email", required)
+        input(name="password", type="password", required)
+        input(type="submit", value="sign in")
+    a(href="/signup") If you want to Create Account?
