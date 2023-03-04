@@ -63,10 +63,16 @@ export const signIn = async (req: Request, res: Response) => {
     }
     res.redirect("/");
 }
-export const getEditUserPage = (req: Request, res: Response) => res.send("sign up page");
+export const getEditUserPage = (req: Request, res: Response) => {
+    return res.render("editUser");
+};
 export const editUser = (req: Request, res: Response) => res.send("sign up page");
 export const deleteUser = (req: Request, res: Response) => res.send("sign up page");
-export const signOut = (req: Request, res: Response) => res.send("sign up page");
+export const signOut = (req: Request, res: Response) => {
+    req.session.destroy((err) => {
+        return res.redirect("/")
+    });
+};
 
 export const startGithubLogin = (req: Request, res: Response) => {
     const baseUrl = "https://github.com/login/oauth/authorize"
