@@ -14,9 +14,10 @@ datasource db {
 model User {
   id        Int       @id @default(autoincrement())
   email     String    @unique
-  password  String
+  password  String?
+  social    Boolean   @default(false)
   nickname  String
-  avatar    String?
+  avatar    String?   @db.Text
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   Article   Article[]
@@ -49,6 +50,6 @@ model Hashtag {
 model Session {
   id        String   @id
   sid       String   @unique
-  data      String
+  data      String   @db.Text
   expiresAt DateTime
 }

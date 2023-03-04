@@ -5,7 +5,8 @@ import morgan from "morgan";
 import globalRouter from "./routers/globalRouter";
 import userRouter from "./routers/userRouter";
 import articleRouter from "./routers/articleRouter";
-import { User, PrismaClient } from "@prisma/client";
+import { User } from "@prisma/client";
+import prisma from "./lib/server/prisma";
 import { localsMiddleware } from "./middlewares";
 import { PrismaSessionStore } from "@quixo3/prisma-session-store";
 
@@ -17,7 +18,11 @@ declare module "express-session" {
 }
 declare global {
     namespace NodeJS {
-        interface ProcessEnv { COOKIE_SECRET: string }
+        interface ProcessEnv {
+            COOKIE_SECRET: string,
+            GITHUB_CLIENT_ID: string,
+            GITHUB_CLIENT_SECRET: string,
+        }
     }
 }
 const app: Express = express();
@@ -36,7 +41,7 @@ app.use(
         resave: true,
         saveUninitialized: false,
         store: new PrismaSessionStore(
-            new PrismaClient(),
+            prisma,
             {
                 checkPeriod: 2 * 60 * 1000,  //ms
                 dbRecordIdIsSessionId: true,
