@@ -1,0 +1,19 @@
+extends base
+
+block content 
+    span=errorMessage
+    if loggedIn
+        form(method="POST" enctype="multipart/form-data")
+            label(for="avatar") Avatar
+            if loggedInUser.avatar
+                input(name="avatar" id="avatar" type="file" accept="image/*") 
+                span previous profile: #{loggedInUser.avatar}
+            else
+                input(name="avatar" id="avatar" type="file" accept="image/*")
+            input(name="email" type="email" value=loggedInUser.email disabled)
+            input(name="social" type="text" value=`${loggedInUser.social.toString() ? "github social login" : "site login"}` disabled)
+            input(name="nickname" type="text" value=loggedInUser.nickname disabled)
+            input(name="createdAt" type="text" value=loggedInUser.createdAt disabled)
+            input(type="submit" value="modify profile")
+    else
+        span no data

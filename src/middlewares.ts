@@ -1,4 +1,6 @@
 import { Request, Response, NextFunction } from "express";
+import multer from "multer"
+
 export const localsMiddleware = (req: Request, res: Response, next: NextFunction) => {
     res.locals.siteName = "easyFrontEnd";
     res.locals.loggedIn = Boolean(req.session.loggedIn);
@@ -22,3 +24,8 @@ export const publicOnlyMiddleware = (req: Request, res: Response, next: NextFunc
         return next();
     }
 }
+
+export const uploadFiles = multer({
+    //where to store th files
+    dest: "uploads/"
+})

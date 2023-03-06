@@ -6,6 +6,7 @@ import bcrypt from "bcrypt";
 import { URLSearchParams } from "url";
 import session from "express-session";
 import { execPath } from "process";
+import fs from "fs";
 export const getSignUpPage = (req: Request, res: Response) => res.render("signup", { pageTitle: "SIGN UP" });
 
 
@@ -43,7 +44,7 @@ export const signUp = async (req: Request, res: Response) => {
         }
     })
 
-    return res.render("/signin", { pageTitle: "Sign In", okMessage: "Your Account Successfully created!" });
+    return res.redirect("/signin");
 };
 export const getSignInPage = (req: Request, res: Response) => res.render("signin", { pageTitle: "SIGN IN" });
 
@@ -64,9 +65,36 @@ export const signIn = async (req: Request, res: Response) => {
     res.redirect("/");
 }
 export const getEditUserPage = (req: Request, res: Response) => {
-    return res.render("editUser");
+    return res.render("editUser", { pageTitle: "user profile" });
 };
-export const editUser = (req: Request, res: Response) => res.send("sign up page");
+export const editUser = async (req: Request, res: Response) => {
+    console.log(req.file)
+    const userId = req.session.user?.id;
+    const preAvatar = req.session.user?.avatar;
+    const file = req.file as Express.Multer.File;
+    const path = file?.path;
+    if (!path) { return res.redirect("/user/edit") }
+    try {
+        const updatedUser = await prisma.user.update({
+            where: {
+                id: userId,
+            },
+            data: {
+                avatar: path
+            }
+        })
+        req.session.user = updatedUser;
+        if (preAvatar) {
+            fs.unlink(preAvatar, (err) => {
+                if (err) console.log("file deleted error");
+                console.log("File deleted");
+            })
+        }
+        return res.redirect("/user/edit")
+    } catch (err) {
+        return res.redirect("/user/edit")
+    }
+};
 export const deleteUser = (req: Request, res: Response) => res.send("sign up page");
 export const signOut = (req: Request, res: Response) => {
     req.session.destroy((err) => {
