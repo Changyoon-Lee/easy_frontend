@@ -57,7 +57,8 @@ app.use(localsMiddleware)
 app.use("/", globalRouter)
 app.use("/user", userRouter)
 app.use("/article", articleRouter)
-app.use("/static", express.static("src/public"))
+app.use("/uploads", express.static("uploads"))
+app.use("/assets", express.static("assets"))
 app.listen(PORT, () => {
     console.log(`[server]: Server is running at <https://localhost>:${PORT}`);
 });
