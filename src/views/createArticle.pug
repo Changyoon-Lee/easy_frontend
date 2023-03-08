@@ -1,8 +1,11 @@
 extend base
 
-block content 
-    form(method="POST", action="/article/create")
-        input(type="text" name="title" placeholder="title of article")
-        input(type="text" name="description" placeholder="description of article")
-        input(type="text" name="hashtags" placeholder="hash tags separate by comma.")
+block content
+    span=errorMessage
+    form(method="POST", action="/article/create" enctype="multipart/form-data")
+        label(for="video") Video File 
+        input(type="file" accept="video/*" id="video" name="video")
+        input(type="text" name="title" placeholder="title of article" required)
+        input(type="text" name="description" placeholder="description of article" required)
+        input(type="text" name="hashtags" placeholder="hash tags separate by comma." required)
         input(type="submit" value="upload this post")

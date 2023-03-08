@@ -68,7 +68,6 @@ export const getEditUserPage = (req: Request, res: Response) => {
     return res.render("editUser", { pageTitle: "user profile" });
 };
 export const editUser = async (req: Request, res: Response) => {
-    console.log(req.file)
     const userId = req.session.user?.id;
     const preAvatar = req.session.user?.avatar;
     const file = req.file as Express.Multer.File;

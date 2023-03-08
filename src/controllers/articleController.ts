@@ -20,17 +20,31 @@ export const getMainPage = async (req: Request, res: Response) => {
     }
 }
 export const getCreateArticlePage = (req: Request, res: Response) => res.render("createArticle")
-export const watchArticle = (req: Request, res: Response) => res.render("watch")
+export const watchArticle = async (req: Request, res: Response) => {
+    const userId = req.session.user?.id
+    const articleId = req.params.id
 
+    try {
+        const article = await prisma.article.findUnique({
+            where: { id: parseInt(articleId) },
+            include: { user: true }
+        })
+        return res.render("watchArticle", { article })
+    } catch (e) {
+        res.render("watchArticle", { errorMessage: e })
+    }
+}
 
 interface HashtagObj {
     where: { hashtag: string }
     create: { hashtag: string }
 }
 export const createArticle = async (req: Request, res: Response) => {
-    const userId: number = 0;
+    const userId = req.session.user?.id;
+    const file = req.file as Express.Multer.File;
+    const video = file?.path;
+    const { title, description, caption } = req.body;
     try {
-        const { title, description, caption } = req.body;
         let hashtagObjs: HashtagObj[] = [];
         if (caption) {
             const hashtags = caption.match(/#[ㄱ-ㅎ|ㅏ-ㅣ|가-힣|\w]+/g);//array형태
@@ -39,9 +53,10 @@ export const createArticle = async (req: Request, res: Response) => {
                 create: { hashtag }
             })) || [];
         }
-        await prisma.article.create({
+        const newArticle = await prisma.article.create({
             data: {
                 title,
+                video,
                 description,
                 user: {
                     connect: {
@@ -56,8 +71,9 @@ export const createArticle = async (req: Request, res: Response) => {
 
             }
         })
-        res.render("createArticle")
+        res.redirect(`/article/${newArticle.id}`)
     } catch (e) {
+        console.log(e);
         res.render("createArticle", { errorMessage: e })
 
     }
@@ -67,3 +83,15 @@ export const getEditArticlePage = (req: Request, res: Response) => res.render("e
 export const editArticle = (req: Request, res: Response) => res.render("edit")
 export const commentArticle = (req: Request, res: Response) => res.send("article page")
 export const likeArticle = (req: Request, res: Response) => res.send("article page")
+export const viewCount = async (req: Request, res: Response) => {
+    const articleId = req.params.id;
+    try {
+        await prisma.article.update({
+            where: { id: parseInt(articleId) },
+            data: { views: { increment: 1 } }
+        })
+        return res.sendStatus(200)
+    } catch {
+        return res.sendStatus(404)
+    }
+}

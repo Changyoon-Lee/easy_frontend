@@ -25,7 +25,17 @@ export const publicOnlyMiddleware = (req: Request, res: Response, next: NextFunc
     }
 }
 
-export const uploadFiles = multer({
-    //where to store th files
-    dest: "uploads/"
+export const uploadAvatar = multer({
+    //where to store th files, req.files 가 생성됨
+    dest: "uploads/avatars/",
+    limits: {
+        fileSize: 3000000,
+    }
+})
+export const uploadVideo = multer({
+    //where to store th files, req.files 가 생성됨
+    dest: "uploads/videos/",
+    limits: {
+        fileSize: 50000000,
+    }
 })

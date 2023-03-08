@@ -1,8 +1,9 @@
 import express from "express";
 import { commentArticle, createArticle, deleteArticle, editArticle, getCreateArticlePage, getEditArticlePage, watchArticle } from "../controllers/articleController"
+import { uploadVideo } from "../middlewares";
 const articleRouter = express.Router();
 
-articleRouter.route("/create").get(getCreateArticlePage).post(createArticle);
+articleRouter.route("/create").get(getCreateArticlePage).post(uploadVideo.single('video'), createArticle);
 articleRouter.get("/delete", deleteArticle);
 articleRouter.get("/comments", commentArticle);
 articleRouter.get("/:id", watchArticle);

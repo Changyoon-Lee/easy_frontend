@@ -5,6 +5,7 @@ import morgan from "morgan";
 import globalRouter from "./routers/globalRouter";
 import userRouter from "./routers/userRouter";
 import articleRouter from "./routers/articleRouter";
+import apiRouter from "./routers/apiRouter";
 import { User } from "@prisma/client";
 import prisma from "./lib/server/prisma";
 import { localsMiddleware } from "./middlewares";
@@ -57,6 +58,7 @@ app.use(localsMiddleware)
 app.use("/", globalRouter)
 app.use("/user", userRouter)
 app.use("/article", articleRouter)
+app.use("/api", apiRouter)
 app.use("/uploads", express.static("uploads"))
 app.use("/assets", express.static("assets"))
 app.listen(PORT, () => {
