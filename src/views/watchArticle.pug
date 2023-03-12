@@ -3,15 +3,36 @@ extends base
 block content
     if errorMessage 
         span errorMesage
-    if article.video
-        video(src="/"+article.video controls)
+    else
+        if article.video
+            img(src="/"+article.video controls)
+        else 
+            span no video
+        #articleContent 
+            div=article.title 
+            div=article.description 
+
         div#articleInfo(data-id=article.id)
             small=article.createdAt
             small=article.views
             small=article.rating
-        div 
-            img(href=article.user.avatar) 
+            ul
+                for hashtag in article.hashtags
+                    li=hashtag
+        div#userInfo 
+            img(src=article.user.avatar) 
             a(src=`/user/${article.user.id}`)=article.user.nickname
+        if loggedIn 
+            form#comment-form
+                textarea(cols="30", rows="10", placeholder="write a comment...")
+                button Add Comment 
+        #comments 
+            ul 
+                each comment in article.comments.reverse()
+                    li 
+                        span #{comment.user.nickname} | #{comment.comments}
 
 block script 
     script(src="/assets/js/videoPlayer.js")
+    if loggedIn 
+        script(src="/assets/js/commentSection.js")

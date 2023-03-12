@@ -2,17 +2,17 @@ doctype html
 html(lang="ko")
     head 
         title #{pageTitle} | #{siteName}
-        link(rel="stylesheet" href="https://unpkg.com/mvp.css@1.12/mvp.css")
-        link(rel="stylesheet" href="https://kit.fontawesome.com/88eea5fb64.css" crossorigin="anonymous")
+        script(src="https://kit.fontawesome.com/88eea5fb64.js" crossorigin="anonymous")
         link(rel="stylesheet" href="/assets/css/styles.css")
 
     body
-        h1(class="bg-red-400 text-blue-400")=pageTitle 
-        include partials/header 
-        include partials/nav
-        main
-            block content 
+        include partials/header
+        div(class="max-w-5xl mx-auto flex")
+            include partials/nav
+            main(class="w-full")
+                h1(class="text-blue-400")=pageTitle 
+                block content 
 
         include partials/footer
-    script(src="/assets/js/main.js")
+
     block script

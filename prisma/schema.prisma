@@ -21,6 +21,7 @@ model User {
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   Article   Article[]
+  comments  Comment[]
 }
 
 model Article {
@@ -35,6 +36,7 @@ model Article {
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
   hashtags    Hashtag[]
+  comments    Comment[]
 
   @@index([userId])
 }
@@ -45,6 +47,19 @@ model Hashtag {
   articles  Article[]
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
+}
+
+model Comment {
+  id        Int      @id @default(autoincrement())
+  comments  String
+  articles  Article  @relation(fields: [articleId], references: [id], onDelete: Cascade)
+  articleId Int
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    Int
+  createdAt DateTime @default(now())
+
+  @@index([articleId])
+  @@index([userId])
 }
 
 model Session {

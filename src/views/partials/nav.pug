@@ -1,12 +1,14 @@
-nav 
-    span 소개페이지
-    span 최근포스팅
-    span 인기포스팅
-    span html 
-    span css
-    span vanilajs 
-    span reactjs
-    span nextjs 
-    span other frameworks
-    a(href="/article/create")
-        span upload post
+nav(class="w-56 p-2 shadow-lg")
+    ul(class="space-y-2")
+        a(href="/")
+            li(class="rounded-xl cursor-pointer flex space-x-6 justify-start items-center hover:bg-sky-200 h-16 px-4 text-lg")
+                i(class="fas fa-house")
+                span 홈
+        li(class="rounded-xl cursor-pointer flex space-x-6 justify-start items-center hover:bg-sky-200 h-16 px-4 text-lg")  
+            i(class="fas fa-star")
+            span 구독
+        li(class="rounded-xl cursor-pointer flex space-x-6 justify-start items-center hover:bg-sky-200 h-16 px-4 text-lg")  
+            i(class="fas fa-fire")
+            span 인기포스팅
+        a(href="/article/create")
+            span upload post

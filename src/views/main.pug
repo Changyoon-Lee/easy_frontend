@@ -1,6 +1,14 @@
 extends base
 
 block content
-    ul
-        each article in [1,2,3,4]
-            li(key=article) article #{article}
+    ul(class="flex flex-nowrap")
+        each article in articles
+            li(key=article.id)
+                a(href=`/article/${article.id}`)
+                    if article.video
+                        img(src=article.video class="h-36 w-52 m-20 rounded-xl shadow-lg bg-gray-200 ") 
+                    else 
+                        div(class="h-36 w-52 m-20 rounded-xl shadow-lg bg-gray-200")
+block script 
+    script(src="/assets/js/main.js")
+    

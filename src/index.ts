@@ -10,6 +10,11 @@ import { User } from "@prisma/client";
 import prisma from "./lib/server/prisma";
 import { localsMiddleware } from "./middlewares";
 import { PrismaSessionStore } from "@quixo3/prisma-session-store";
+//ToDo
+// 1. 댓글기능 만들기 [0]
+// 2. 디자인 
+// 3. article 서식 적용시키기(http://jun.hansung.ac.kr/CWP/htmls/HTML%20Formatting.html)
+// 4. 유저프로파일 비밀번호 수정, 
 
 declare module "express-session" {
     interface SessionData {
@@ -32,7 +37,8 @@ app.set("view engine", "pug");
 app.set("views", process.cwd() + "/src/views"); //-> 기본값이지만 명시적으로 작성해주었음.
 const loggerMiddleware = morgan("dev");
 app.use(loggerMiddleware);
-app.use(express.urlencoded({ extended: true }))
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 app.use(
     session({
         cookie: {

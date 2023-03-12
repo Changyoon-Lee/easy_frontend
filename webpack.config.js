@@ -1,9 +1,14 @@
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 module.exports = {
+    experiments: {
+        topLevelAwait: true
+    },
     entry: {
         main: './src/client/js/main.js',
-        videoPlayer: "./src/client/js/videoPlayer.js"
+        videoPlayer: "./src/client/js/videoPlayer.js",
+        commentSection: "./src/client/js/commentSection.js",
+        videoConverter: "./src/client/js/videoConverter.js"
     },
     mode: "development",
     watch: true, //변경시 바로 적용
