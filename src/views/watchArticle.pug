@@ -5,32 +5,42 @@ block content
         span errorMesage
     else
         if article.video
-            img(src="/"+article.video controls)
+            video(src="/"+article.video controls)
         else 
             span no video
-        #articleContent 
-            div=article.title 
-            div=article.description 
+        #articleContent(class="p-2")
+            div(class="my-5 text-gray-900 text-2xl font-bold")=article.title 
+            div(class="flex items-center justify-between")
+                div#usserInfo(class="flex space-x-2")
+                    img(class="profile_img" src=article.user.avatar) 
+                    a(src=`/user/${article.user.id}`)=article.user.nickname
+                div#articleInfo(data-id=article.id)
+                    small=article.createdAt
+                    small=article.views
+                    small=article.rating
+                    ul(class="flex")
+                        for hashtag in article.hashtags
+                            li(class="text-sm bg-yellow-100 py-1 px-2 rounded-lg") ##{hashtag.hashtag}
+            div(class="bg-gray-50 rounded-lg p-2 h-36 my-5")=article.description 
 
-        div#articleInfo(data-id=article.id)
-            small=article.createdAt
-            small=article.views
-            small=article.rating
-            ul
-                for hashtag in article.hashtags
-                    li=hashtag
-        div#userInfo 
-            img(src=article.user.avatar) 
-            a(src=`/user/${article.user.id}`)=article.user.nickname
+        h2 댓글
         if loggedIn 
-            form#comment-form
-                textarea(cols="30", rows="10", placeholder="write a comment...")
-                button Add Comment 
+            form#comment-form(class="space-y-2")
+                div(class="flex space-x-2")
+                    img(class="profile_img" src=loggedInUser.avatar)
+                    textarea(class="w-full min-h-max text-sky-700 border border-sky-700 rounded-xl px-2" cols="30", rows="4", placeholder="댓글 추가...")
+                div(class="flex justify-end")
+                    button(class="text-white bg-sky-700 rounded-md justify-end px-2 py-2") 댓글 작성
         #comments 
-            ul 
+            ul(class="space-y-8")
                 each comment in article.comments.reverse()
-                    li 
-                        span #{comment.user.nickname} | #{comment.comments}
+                    li(class="flex space-x-2")
+                        img(class="profile_img" src=comment.user.avatar)
+                        div
+                            div(class="text-sm text-gray-800")
+                                span #{comment.user.nickname} 
+                                span #{comment.createdAt}
+                            div #{comment.comments}
 
 block script 
     script(src="/assets/js/videoPlayer.js")

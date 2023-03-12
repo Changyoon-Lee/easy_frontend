@@ -19,7 +19,6 @@ const handleSubmit = async (event) => {
             body: JSON.stringify({ text })
         });
 
-    console.log(res.status);
     if (status === 200) {
         window.location.reload();
     }

@@ -11,14 +11,14 @@ articleForm.addEventListener("submit", async (event) => {
     const inputFile = articleForm.querySelector("#video").files[0];
     if (inputFile) {
         ffmpeg.FS("writeFile", "target", await fetchFile(inputFile))
-        await ffmpeg.run("-i", "target", "-t", "5", "-r", "20", "ouput.gif")
-        const gifFile = ffmpeg.FS("readFile", "ouput.gif")
-        const gifBlob = new Blob([gifFile.buffer], { type: "image/gif" });
+        await ffmpeg.run("-i", "target", "-t", "5", "-r", "20", "ouput.mp4")
+        const mp4File = ffmpeg.FS("readFile", "ouput.mp4")
+        const mp4Blob = new Blob([mp4File.buffer], { type: "video/mp4" });
 
         articleForm.querySelector("#video").remove();
         console.log(articleForm);
         let formData = new FormData(articleForm);
-        formData.append("video", gifBlob, "output.gif")
+        formData.append("video", mp4Blob, "output.mp4")
         fetch("/article/create", { method: "POST", body: formData, }).then((res) => {
             console.log("done")
             window.location.href = "/" // fetch로는 redirect 안돼어 수동으로 해주어야함 

@@ -1,22 +1,25 @@
 header(class="max-w-5xl mx-auto")
     
-    div(class="flex justify-between items-center p-2")
-        div(class="space-x-2")
-            i(class="fa-solid fa-bars")
-            span FrontEnd
+    div(class="flex justify-between items-center p-4")
+        div(class="space-x-2 text-lg font-bold flex items-center")
+            i(class="w-8 flex justify-center fa-solid fa-bars")
+            span WETUBE
         include searchBar
         if !loggedIn
-            div(class="space-x-2 flex")
+            div(class="space-x-2 flex relative")
                 a(href="/signin")
-                    button(class="p-2 flex space-x-2 justify-around items-center border border-gray-200 rounded-full text-sky-600 hover:bg-sky-200 hover:border-sky-200 active:bg-sky-700")
+                    button(class="h-10 w-20 flex space-x-2 justify-center items-center border border-gray-200 rounded-full text-sky-600 hover:bg-sky-200 hover:border-sky-200 active:bg-sky-700")
                         i(class="fa-regular fa-circle-user")
                         span 로그인
                 a(href="/signup")
-                    button(class="p-2 flex space-x-2 justify-around items-center border border-gray-200 rounded-full text-sky-600 hover:bg-sky-200 hover:border-sky-200 active:bg-sky-700")
+                    button(class="h-10 w-20 flex space-x-2 justify-center items-center border border-gray-200 rounded-full text-sky-600 hover:bg-sky-200 hover:border-sky-200 active:bg-sky-700")
                         span 계정 생성
         else
-            div(class="") 
-                a(href="/user/edit")
-                    span profile
-                a(href="/user/signout")
-                    span sign out
+            div(class="space-x-2 flex relative")
+                img(src=loggedInUser.avatar class="cursor-pointer profile_img border-2 border-sky-600" id="profile_img")
+                ul(class="absolute w-36 right-0 top-14 shadow-lg rounded-lg space-y-2 p-2 border border-gray-100 hidden" id="profile_menu")
+                    li
+                        a(href="/user/edit") 프로필 수정
+                    li
+                        a(href="/user/signout") 로그아웃
+                

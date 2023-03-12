@@ -3,17 +3,24 @@ extends base
 block content 
     span=errorMessage
     if loggedIn
-        form(method="POST" enctype="multipart/form-data")
-            label(for="avatar") Avatar
-            if loggedInUser.avatar
-                input(name="avatar" id="avatar" type="file" accept="image/*") 
-                span previous profile: #{loggedInUser.avatar}
-            else
-                input(name="avatar" id="avatar" type="file" accept="image/*")
-            input(name="email" type="email" value=loggedInUser.email disabled)
-            input(name="social" type="text" value=`${loggedInUser.social.toString() ? "github social login" : "site login"}` disabled)
-            input(name="nickname" type="text" value=loggedInUser.nickname disabled)
-            input(name="createdAt" type="text" value=loggedInUser.createdAt disabled)
-            input(type="submit" value="modify profile")
+        div(class="relative flex justify-center items-center max-w-xl bg-gray-50 h-100 rounded-lg shadow-lg")
+            form(class="relative w-2/3 max-w-3xl space-y-2 my-5 rounded-lg" method="POST" enctype="multipart/form-data")
+                label(class="flex flex-col text-sm text-sky-700 border border-sky-700 rounded-xl px-2") 프로필 사진
+                    if loggedInUser.avatar
+                        input(class="my-2 text-gray-800 font-semibold" name="avatar" id="avatar" type="file" accept="image/*") 
+                        span previous profile: #{loggedInUser.avatar}
+                    else
+                        input(class="my-2 text-gray-800 font-semibold" name="avatar" id="avatar" type="file" accept="image/*")
+                label(class="flex flex-col text-sm text-sky-700 border border-sky-700 rounded-xl px-2") email 주소 
+                    input(class="my-2 text-gray-800 font-semibold" name="email" type="email" value=loggedInUser.email disabled)
+                label(class="flex flex-col text-sm text-sky-700 border border-sky-700 rounded-xl px-2") 소셜로그인 여부 
+                    input(class="my-2 text-gray-800 font-semibold" name="social" type="text" value=`${loggedInUser.social.toString() ? "github social login" : "site login"}` disabled)
+                label(class="flex flex-col text-sm text-sky-700 border border-sky-700 rounded-xl px-2") 유저 닉네임 
+                    input(class="my-2 text-gray-800 font-semibold" name="nickname" type="text" value=loggedInUser.nickname disabled)
+                label(class="flex flex-col text-sm text-sky-700 border border-sky-700 rounded-xl px-2") 계정 생성일 
+                    input(class="my-2 text-gray-800 font-semibold" name="createdAt" type="text" value=loggedInUser.createdAt disabled)
+                div(class="flex justify-end p-2")
+                    input(class="text-white bg-sky-700 rounded-md justify-end px-4 py-2" type="submit" id="uploadBtn" value="modify profile")
+
     else
         span no data

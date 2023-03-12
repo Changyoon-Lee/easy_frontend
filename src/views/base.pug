@@ -9,10 +9,10 @@ html(lang="ko")
         include partials/header
         div(class="max-w-5xl mx-auto flex")
             include partials/nav
-            main(class="w-full")
+            main(class="w-full p-5")
                 h1(class="text-blue-400")=pageTitle 
                 block content 
 
         include partials/footer
-
+    script(src="/assets/js/main.js")
     block script

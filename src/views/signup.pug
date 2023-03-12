@@ -2,10 +2,17 @@ extends base
 
 block content 
     span=errorMessage
-    form(method="POST")
-        input(name="email" type="email" placeholder="email" required)
-        input(name="password" type="password" placeholder="password" required)
-        input(name="password2" type="password" placeholder="password check" required)
-        input(name="nickname" type="text" placeholder="nickname" required)
-        input(type="submit" value="sign up")
-    a(href="/signin") if you have account already. Please go to login Page!
+    div(class="fixed bg-gray-900 bg-opacity-70 top-0 bottom-0 left-0 right-0 flex justify-center items-center")
+        div(class="relative w-5/6 max-w-lg bg-white h-100 rounded-lg shadow-lg p-10")
+            form(method="POST" class="w-80 m-auto flex flex-col space-y-3 my-2")
+                h1(class="text-xl font-bold text-center") Create New Account
+                label(class="flex flex-col text-sm text-sky-700 border-2 border-sky-700 rounded-lg px-2") email
+                    input(class="my-2" name="email" type="email" placeholder="email" required)
+                label(class="flex flex-col text-sm text-sky-700 border-2 border-sky-700 rounded-lg px-2") password
+                    input(class="my-2" name="password" type="password" placeholder="password" required)
+                label(class="flex flex-col text-sm text-sky-700 border-2 border-sky-700 rounded-lg px-2") password check
+                    input(class="my-2" name="password2" type="password" placeholder="password check" required)
+                label(class="flex flex-col text-sm text-sky-700 border-2 border-sky-700 rounded-lg px-2") nickname
+                    input(class="my-2" name="nickname" type="text" placeholder="nickname" required)
+                input(class="cursor-pointer rounded-lg py-2 bg-sky-600 hover:bg-sky-500 active:bg-sky-700" type="submit" value="sign up")
+            a(class="block w-80 m-auto text-sky-600 text-sm" href="/signin") if you have account already. Go to login Page!

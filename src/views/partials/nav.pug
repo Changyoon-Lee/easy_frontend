@@ -1,14 +1,15 @@
-nav(class="w-56 p-2 shadow-lg")
-    ul(class="space-y-2")
+nav(class="w-56 p-4 shadow-lg")
+    ul(class="space-y-2 flex flex-col justify-start")
         a(href="/")
-            li(class="rounded-xl cursor-pointer flex space-x-6 justify-start items-center hover:bg-sky-200 h-16 px-4 text-lg")
-                i(class="fas fa-house")
+            li(class="rounded-xl cursor-pointer flex space-x-6 justify-start items-center hover:bg-sky-200 h-16 text-lg")
+                i(class="w-8 fas fa-house flex justify-center")
                 span 홈
-        li(class="rounded-xl cursor-pointer flex space-x-6 justify-start items-center hover:bg-sky-200 h-16 px-4 text-lg")  
-            i(class="fas fa-star")
-            span 구독
-        li(class="rounded-xl cursor-pointer flex space-x-6 justify-start items-center hover:bg-sky-200 h-16 px-4 text-lg")  
-            i(class="fas fa-fire")
-            span 인기포스팅
-        a(href="/article/create")
-            span upload post
+        a(href="/")
+            li(class="rounded-xl cursor-pointer flex space-x-6 justify-start items-center hover:bg-sky-200 h-16 text-lg")  
+                i(class="w-8 fas fa-star flex justify-center")
+                span 구독
+        a(href="/")
+            li(class="rounded-xl cursor-pointer flex space-x-6 justify-start items-center hover:bg-sky-200 h-16 text-lg")  
+                i(class="w-8 fas fa-fire flex justify-center")
+                span 인기포스팅
+        
