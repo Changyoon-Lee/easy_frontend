@@ -32,7 +32,7 @@ declare global {
     }
 }
 const app: Express = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 app.set("view engine", "pug");
 app.set("views", process.cwd() + "/src/views"); //-> 기본값이지만 명시적으로 작성해주었음.
 const loggerMiddleware = morgan("dev");
