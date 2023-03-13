@@ -1,4 +1,5 @@
-form(class="flex-1 space-x-3 max-w-56 rounded-full flex justify-between items-center max-w-xl mx-5 border-2 border-sky-700 p-3 ")
-    i(class="fa-solid fa-magnifying-glass")
-    input(class="flex-1" type="text" placeholder="search with title" required)
-    i(class="fa-solid fa-circle-xmark text-slate-400")
+form(class="flex-1 space-x-3 max-w-56 rounded-full flex justify-between items-center max-w-xl mx-5 border-2 border-sky-700 p-3" action="/search")
+    button
+        i(class="fa-solid fa-magnifying-glass")
+    input(class="flex-1" type="text" placeholder="search with title" required name="search" id="searchInput")
+    i(class="fa-solid fa-circle-xmark text-slate-400" id="resetBtn")

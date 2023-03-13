@@ -1,20 +1,22 @@
 import { Request, Response } from "express";
+import { userInfo } from "os";
 import prisma from '../lib/server/prisma'
 export const getMainPage = async (req: Request, res: Response) => {
     try {
         const articles = await prisma.article.findMany({
             take: 10,
             include: {
-                hashtags: true
+                hashtags: true,
+                user: true
             },
             orderBy: {
                 updatedAt: "desc"
             }
         })
-        res.render("main", { pageTitle: "create Article", articles })
+        res.render("main", { pageTitle: "최근 게시물", articles })
     } catch (e) {
         console.error('main page loading error', e);
-        res.render("main", { pageTitle: "create Article", errorMessage: 'main page loading error' })
+        res.render("main", { pageTitle: "최근 게시물", errorMessage: 'main page loading error' })
     }
 }
 export const getCreateArticlePage = (req: Request, res: Response) => res.render("createArticle")
@@ -125,5 +127,42 @@ export const viewCount = async (req: Request, res: Response) => {
         return res.sendStatus(200)
     } catch {
         return res.sendStatus(404)
+    }
+}
+export const searchArticle = async (req: Request, res: Response) => {
+    const searchString = req.query.search?.toString();
+    try {
+        const articles = await prisma.article.findMany({
+            where: {
+                title: { contains: searchString }
+            },
+            include: {
+                hashtags: true,
+                user: true
+            },
+            orderBy: {
+                updatedAt: "desc"
+            }
+        })
+        return res.render("main", { articles, pageTitle: `${searchString} 에 대한 검색 결과...` })
+    } catch {
+        return res.render("main", { errorMessage: "something wrong.." })
+    }
+}
+export const searchFamous = async (req: Request, res: Response) => {
+    try {
+        const articles = await prisma.article.findMany({
+            take: 10,
+            include: {
+                hashtags: true,
+                user: true
+            },
+            orderBy: {
+                views: "desc"
+            }
+        })
+        return res.render("main", { articles, pageTitle: `인기게시물 top 10` })
+    } catch {
+        return res.render("main", { errorMessage: "something wrong.." })
     }
 }

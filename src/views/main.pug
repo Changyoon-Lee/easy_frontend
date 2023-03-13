@@ -10,13 +10,16 @@ block content
                             video(src=article.video class="object-cover h-full") 
                         else 
                             div(class="")
-                    div(class="text-sm flex justify-between") 
-                        span(class="font-bold mt-2")=article.title 
-                        span #{article.views} view
-                    ul(class="flex")
-                        for hashtag in article.hashtags
-                            li(class="text-sm bg-yellow-100 py-1 px-2 rounded-lg") ##{hashtag.hashtag}
-    a(class="space-x-2 fixed right-8 bottom-8 text-white bg-sky-600 rounded-md justify-end p-3 py-4" href="/article/create")
+                    div(class="flex items-start space-x-2 mt-2")
+                        img(class="profile_img" src=article.user.avatar)   
+                        div(class="text-sm flex flex-col justify-between items-start") 
+                            span(class="font-bold")=article.title 
+                            span(class="text-sm")=article.user.nickname 
+                            span(class="text-xs text-gray-400") #{article.views} views | #{Math.round((new Date().getTime()-article.createdAt.getTime())/(1000*60*60*24))} 일전
+                            ul(class="flex space-x-1")
+                                for hashtag in article.hashtags
+                                    li(class="text-xs bg-yellow-100 py-1 px-2 rounded-lg") ##{hashtag.hashtag}
+    a(class="block space-x-2 fixed right-8 bottom-8 text-white rounded-full justify-end p-3 py-4 shadow-sky-500 shadow-md button-bg-set" href="/article/create")
             i(class="fa-solid fa-plus")
             span(class="font-bold") upload Video
 block script 

@@ -36,4 +36,6 @@ articleForm.addEventListener("submit", async (event) => {
     }
 })
 
-
+// btn 기능
+const exitBtn = document.getElementById("exitBtn")
+exitBtn.addEventListener("click", () => { history.back() })

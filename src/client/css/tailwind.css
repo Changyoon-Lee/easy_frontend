@@ -10,3 +10,15 @@
 h1 {
     @apply text-xl ml-2 font-bold
 }
+
+.button-bg-set {
+    @apply bg-sky-600
+}
+
+.button-bg-set:hover {
+    @apply bg-sky-500
+}
+
+.button-bg-set:active {
+    @apply bg-sky-700
+}

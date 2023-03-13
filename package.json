@@ -11,7 +11,7 @@
     "build:assets": "webpack --mode=production",
     "clean": "tsc --build --clean",
     "build-tailwindcss": "tailwindcss -i src/tailwind.css -o src/public/css/tailwind.css",
-    "dev:assets": "webpack --config --mode=development --w webpack.config.js",
+    "dev:assets": "webpack --mode=development -w",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

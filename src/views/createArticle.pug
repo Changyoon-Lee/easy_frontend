@@ -5,7 +5,7 @@ block content
     div(class="fixed  bg-gray-900 bg-opacity-70 top-0 bottom-0 left-0 right-0 flex justify-center")
         form(class="relative w-5/6 max-w-3xl bg-white my-5 rounded-lg shadow-lg" id="uploadForm")
             div(class="absolute left-0 right-0 top-0 border-b border-gray-400 flex justify-end p-2")
-                i(class="fas fa-xmark text-gray-600 hover:text-red-500 text-lg mx-2" type="submit" value="upload")
+                i(class="fas fa-xmark text-gray-600 hover:text-red-500 text-lg mx-2" type="submit" value="upload" id="exitBtn")
             div(class="flex flex-col space-y-2 my-20 mx-auto p-2 w-5/6 overflow-y-scroll")
                 label(class="flex flex-col text-sm text-sky-700 border border-sky-700 rounded-xl px-2") 비디오 파일 
                     input(class="my-2" type="file" accept="video/*" id="video" name="video")
@@ -16,7 +16,7 @@ block content
                 label(class="flex flex-col text-sm text-sky-700 border border-sky-700 rounded-xl px-2") 태그 
                     input(class="my-2" type="text" name="hashtags" placeholder="hash tags separate by comma." required)
             div(class="absolute left-0 right-0 bottom-0 border-t border-gray-400 flex justify-end p-2")
-                input(class="text-white bg-sky-700 rounded-md justify-end px-4 py-2" type="submit" id="uploadBtn" value="upload")
+                input(class="text-white rounded-md justify-end px-4 py-2 button-bg-set" type="submit" id="uploadBtn" value="upload")
 
 block script 
     script(src="/assets/js/videoConverter.js")
