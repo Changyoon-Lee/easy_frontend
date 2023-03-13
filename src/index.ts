@@ -28,6 +28,7 @@ declare global {
             COOKIE_SECRET: string,
             GITHUB_CLIENT_ID: string,
             GITHUB_CLIENT_SECRET: string,
+            PORT: string
         }
     }
 }
@@ -68,5 +69,5 @@ app.use("/api", apiRouter)
 app.use("/uploads", express.static("uploads"))
 app.use("/assets", express.static("assets"))
 app.listen(PORT, () => {
-    console.log(`[server]: Server is running at <https://localhost>:${PORT}`);
+    console.log(`[server]: Server is running at <https://localhost:${PORT}>`);
 });
