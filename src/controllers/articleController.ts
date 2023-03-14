@@ -91,7 +91,22 @@ export const createArticle = async (req: Request, res: Response) => {
 
     }
 }
-export const deleteArticle = (req: Request, res: Response) => res.render("edit")
+export const deleteArticle = async (req: Request, res: Response) => {
+    const articleId = req.body.articleId?.toString();
+    if (articleId) {
+        try {
+            const deleteArticles = await prisma.article.delete({
+                where: {
+                    id: parseInt(articleId)
+                }
+            })
+        } catch (e) {
+            console.log(e);
+            return res.sendStatus(404);
+        }
+    }
+    return res.sendStatus(200);
+}
 export const getEditArticlePage = (req: Request, res: Response) => res.render("edit")
 export const editArticle = (req: Request, res: Response) => res.render("edit")
 export const addComment = async (req: Request, res: Response) => {
