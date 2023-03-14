@@ -1,5 +1,19 @@
 import { Request, Response, NextFunction } from "express";
-import multer from "multer"
+import multer from "multer";
+import multerS3 from "multer-s3";
+import aws from "@aws-sdk/client-s3"
+
+const s3 = new aws.S3({
+    credentials: {
+        accessKeyId: process.env.AWS_ID,
+        secretAccessKey: process.env.AWS_SECRET,
+    }
+})
+const multerUploader = multerS3({
+    s3: s3,
+    bucket: "ezfrontend",
+    acl: "publick-read"
+})
 
 export const localsMiddleware = (req: Request, res: Response, next: NextFunction) => {
     res.locals.siteName = "easyFrontEnd";
@@ -30,14 +44,16 @@ export const uploadAvatar = multer({
     dest: "uploads/avatars/",
     limits: {
         fileSize: 3000000,
-    }
+    },
+    storage: multerUploader,
 })
 export const uploadVideo = multer({
     //where to store th files, req.files 가 생성됨
     dest: "uploads/videos/",
     limits: {
         fileSize: 50000000,
-    }
+    },
+    storage: multerUploader,
 })
 
 export const useffmpeg = (req: Request, res: Response, next: NextFunction) => {

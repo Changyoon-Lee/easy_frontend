@@ -28,7 +28,9 @@ declare global {
             COOKIE_SECRET: string,
             GITHUB_CLIENT_ID: string,
             GITHUB_CLIENT_SECRET: string,
-            PORT: string
+            PORT: string,
+            AWS_ID: string,
+            AWS_SECRET: string
         }
     }
 }

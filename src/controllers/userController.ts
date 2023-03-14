@@ -70,8 +70,8 @@ export const getEditUserPage = (req: Request, res: Response) => {
 export const editUser = async (req: Request, res: Response) => {
     const userId = req.session.user?.id;
     const preAvatar = req.session.user?.avatar;
-    const file = req.file as Express.Multer.File;
-    const path = file?.path;
+    const file = req.file as Express.MulterS3.File;
+    const path = file?.location;
     if (!path) { return res.redirect("/user/edit") }
     try {
         const updatedUser = await prisma.user.update({

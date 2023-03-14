@@ -54,8 +54,8 @@ interface HashtagObj {
 export const createArticle = async (req: Request, res: Response) => {
     //userId 없으면 에러남->에러처리
     const userId = req.session.user?.id;
-    const file = req.file as Express.Multer.File;
-    const video = file?.path;
+    const file = req.file as Express.MulterS3.File;
+    const video = file?.location;
     const { title, description, hashtags: caption } = req.body;
     try {
         let hashtagObjs: HashtagObj[] = [];
