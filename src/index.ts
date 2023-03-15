@@ -71,5 +71,5 @@ app.use("/api", apiRouter)
 app.use("/uploads", express.static("uploads"))
 app.use("/assets", express.static("assets"))
 app.listen(PORT, () => {
-    console.log(`[server]: Server is running at <https://localhost:${PORT}>`);
+    console.log(`[server]: Server is running at <http://localhost:${PORT}>`);
 });
