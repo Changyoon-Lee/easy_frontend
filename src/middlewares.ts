@@ -13,7 +13,7 @@ const s3 = new S3Client({
 const multerUploader = multerS3({
     s3: s3,
     bucket: "ezfrontend",
-    acl: "publick-read"
+    acl: "public-read"
 })
 
 export const localsMiddleware = (req: Request, res: Response, next: NextFunction) => {
