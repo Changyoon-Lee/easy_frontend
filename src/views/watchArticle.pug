@@ -6,7 +6,7 @@ block content
     else
         button(id="deleteBtn" class="text-red-500") ⓧ
         if article.video
-            video(src="/"+article.video controls)
+            video(src=article.video controls )
         else 
             span no video
         #articleContent(class="p-2")
